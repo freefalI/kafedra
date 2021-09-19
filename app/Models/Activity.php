@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     use HasFactory;
+
+    public function members()
+    {
+        return $this->hasMany(ActivityMember::class,'activity_id');
+    }
 }
