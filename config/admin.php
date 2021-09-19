@@ -249,7 +249,7 @@ return [
     | Set a default avatar for newly created users.
     |
     */
-    'default_avatar' => '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg',
+    'default_avatar' => 'default_avatar.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -275,7 +275,7 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => 'skin-blue-light',
+    'skin' => 'skin-purple',
 
     /*
     |--------------------------------------------------------------------------
@@ -289,7 +289,7 @@ return [
     | "sidebar-mini".
     |
     */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout' => ['sidebar-mini'],
 
     /*
     |--------------------------------------------------------------------------
@@ -310,7 +310,7 @@ return [
     | each page
     |
     */
-    'show_version' => true,
+    'show_version' => false,
 
     /*
     |--------------------------------------------------------------------------
