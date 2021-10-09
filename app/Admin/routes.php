@@ -19,6 +19,7 @@ Route::group([
     $router->resource('activities', ActivityController::class);
     $router->resource('leaves', LeaveController::class);
     $router->get('leaves-calendar', 'LeaveController@calendar');
+    $router->get('widgets', 'WidgetController@index');
 });
 
 Route::group([
