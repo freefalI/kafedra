@@ -42,7 +42,7 @@ return [
     'description'           => 'Опис',
     'back'                  => 'Назад',
     'back_to_list'          => 'Повернутися до списку',
-    'submit'                => 'Створити',
+    'submit'                => 'Зберегти',
     'menu'                  => 'Меню',
     'input'                 => 'Введення',
     'succeeded'             => 'Завершено',
