@@ -50,7 +50,7 @@ class ActivityController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
-        $show->members('Участники', function ($comments) {
+        $show->members('Учасники', function ($comments) {
             $comments->employee()->surname();
             $comments->employee()->name();
             $comments->position();

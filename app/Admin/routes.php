@@ -17,6 +17,8 @@ Route::group([
 
     $router->resource('employees', EmployeeController::class);
     $router->resource('activities', ActivityController::class);
+    $router->resource('leaves', LeaveController::class);
+    $router->get('leaves-calendar', 'LeaveController@calendar');
 });
 
 Route::group([
