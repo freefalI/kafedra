@@ -89,7 +89,7 @@ class ActivityController extends AdminController
                 if ($user) {
                     return [$user->id => $user->full_name];
                 }
-            })->ajax('/admin/api/users');
+            })->ajax('/admin/api/employees');
 
             $form->text('position', 'Должность');
         });

@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Employee;
+use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -35,10 +36,10 @@ class EmployeeController extends AdminController
         // $grid->created_at('Created at')->sortable();
         // $grid->updated_at('Updated at')->sortable();
 
-        $grid->filter(function($filter){
-            $filter->like('name','Name');
-            $filter->like('surname','Surname');
-            $filter->like('parent_name','Parent name');
+        $grid->filter(function ($filter) {
+            $filter->like('name', 'Name');
+            $filter->like('surname', 'Surname');
+            $filter->like('parent_name', 'Parent name');
             // $filter->equal('position_id','Position id')->integer();
             // $filter->between('hire_date','Hire date')->date();
             // $filter->between('created_at','Created time')->datetime();
@@ -63,6 +64,19 @@ class EmployeeController extends AdminController
         $show->parent_name('Parent name');
         $show->created_at('Created time');
         // $show->updated_at('Updated at');
+        $show->user('User information', function ($user) {
+
+            // $author->setResource('/admin/users');
+            $user->id();
+            $user->name();
+            $user->username();
+
+            $user->panel()->tools(function ($tools) {
+                $tools->disableEdit();
+                $tools->disableList();
+                $tools->disableDelete();
+            });
+        });
 
         return $show;
     }
@@ -76,14 +90,42 @@ class EmployeeController extends AdminController
     {
         $form = new Form(new Employee());
 
-        $form->display('id','ID');
-        $form->text('name','Name');
-        $form->text('surname','Surname');
-        $form->text('parent_name','Parent name');
+        $form->display('id', 'ID');
+        $form->text('name', 'Name');
+        $form->text('surname', 'Surname');
+        $form->text('parent_name', 'Parent name');
 
-        $form->display('created_at','Created time');
+        $form->display('created_at', 'Created time');
         // $form->display('updated_at','Updated at');
 
+
+        $form->select('user_id', 'Користувач')->options(function ($id) {
+            $user = Administrator::find($id);
+            if ($user) {
+                return [$user->id => $user->username];
+            }
+        })->ajax('/admin/api/users');
+
+
         return $form;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return mixed
+     */
+    public function update($id)
+    {
+        return $this->form()->update($id);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return mixed
+     */
+    public function store()
+    {
+        return $this->form()->store();
     }
 }

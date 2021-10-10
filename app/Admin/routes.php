@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Employee;
+use Encore\Admin\Auth\Database\Administrator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
@@ -26,7 +27,7 @@ Route::group([
     'prefix'        => config('admin.route.prefix') . '/api',
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
-    $router->get('users',  function (Request $request) {
+    $router->get('employees',  function (Request $request) {
         $q = $request->get('q');
 
         return  Employee::where('name', 'like', "%$q%")
@@ -34,6 +35,19 @@ Route::group([
             ->paginate(null, ['id', 'name', 'surname', 'parent_name'])
             ->through(function ($user, $key) {
                 $user['text'] = $user->full_name;
+                return $user;
+            });
+    });
+
+    $router->get('users',  function (Request $request) {
+        $q = $request->get('q');
+
+        return  Administrator::where('username','!=','admin')
+        ->where('name', 'like', "%$q%")
+            ->orWhere('username', 'like', "%$q%")
+            ->paginate(null, ['id', 'name', 'username'])
+            ->through(function ($user, $key) {
+                $user['text'] = $user->username;
                 return $user;
             });
     });

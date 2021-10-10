@@ -18,6 +18,8 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('parent_name')->nullable();
+            $table->unsignedBigInteger('user_id');
+
             // $table->integer('position_id');
             // $table->date('hire_date')->nullable();
             $table->timestamps();
