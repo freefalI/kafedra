@@ -21,21 +21,24 @@ class Leave extends Model
         'date_from',
         'date_to',
         'days',
-        'reason'
+        'reason',
+        'is_approved'
     ];
 
-    protected $dates = ['date_from','date_to'];
+    protected $dates = ['date_from', 'date_to'];
 
-    const TYPE_DAY_OFF='Day off',
-    TYPE_SICK_DAY = 'Sick day',
-    TYPE_VACATION = 'Vacation';
+    const TYPE_DAY_OFF = 'Day off',
+        TYPE_SICK_DAY = 'Sick day',
+        TYPE_VACATION = 'Vacation';
 
     public static function boot()
     {
         parent::boot();
 
         self::creating(function ($model) {
-            $model->days= $model->date_to->diffInDays($model->date_from);
+            $model->days = $model->date_to->diffInDays($model->date_from);
+            if ($model->days == 0)
+                $model->days = 1;
         });
 
         self::created(function ($model) {

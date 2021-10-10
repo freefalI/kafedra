@@ -40,10 +40,15 @@ class LeaveController extends AdminController
         $grid->column('date_to', __('date_to'))->date();
         $grid->column('days', __('N of days'));
         $grid->column('reason', __('reason'));
-        $grid->column('is_approved')->bool();
+        // $grid->column('is_approved')->bool();
+        $states = [
+            'on' => ['text' => 'YES'],
+            'off' => ['text' => 'NO'],
+        ];
+
+        $grid->column('is_approved')->switch($states);
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
-        //TODO ability to approve or reject
 
 
         return $grid;
@@ -105,7 +110,9 @@ class LeaveController extends AdminController
 
     public function calendar(Content $content)
     {
-        $items = Leave::all();
+        $items = Leave::query()
+            ->where('is_approved', 1)
+            ->get();
         $events = [];
 
         //TODO better event name
@@ -135,5 +142,22 @@ class LeaveController extends AdminController
         return $content
             ->title('Leaves calendar')
             ->view('admin.calendar', compact('calendar'));
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update($id)
+    {
+        if (request()->has('is_approved')) {
+            Leave::where('id', $id)->update(request()->only(['is_approved']));
+        }
+
+        return $this->form()->update($id);
     }
 }
