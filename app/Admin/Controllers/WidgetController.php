@@ -49,14 +49,14 @@ class WidgetController extends AdminController
                 'Total employees',
                 'users',
                 'aqua',
-                '/employees',
+                'employees',
                 $total
             ));
             $row->column(3, new Widgets\InfoBox(
                 'Available employees',
                 'users',
                 'green',
-                '/leaves-calendar',
+                'leaves-calendar',
                 $total - $notAvailableEmployees
             ));
             // $row->column(3, new Widgets\InfoBox('Articles', 'book', 'yellow', '/demo/articles', '2786'));
@@ -64,13 +64,13 @@ class WidgetController extends AdminController
                 'Pending applications',
                 'file',
                 'red',
-                '/leaves',
+                'leaves',
                 5
             )); //TODO leaves where ststus pending
 
             //book
             //file
-
+            ///https://fontawesome.com/v4.7/icons/і
         });
 
         return $content;
