@@ -19,4 +19,9 @@ class Employee extends Model
     {
         return $this->belongsTo(Administrator::class, 'user_id');
     }
+
+    public static function getFIO($name, $surname, $parent_name)
+    {
+        return $surname . ' ' . $name[0] . '. ' . $parent_name[0] . '.';
+    }
 }

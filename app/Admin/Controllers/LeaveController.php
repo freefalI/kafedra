@@ -12,6 +12,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
+use Illuminate\Support\Arr;
 
 class LeaveController extends AdminController
 {
@@ -29,15 +30,32 @@ class LeaveController extends AdminController
      */
     protected function grid()
     {
+        $isAdmin = !auth()->user()->employee;
         $leave = new Leave();
         $grid = new Grid($leave);
-        //TODO employee name, filter by name
+        $grid->model()->orderBy('updated_at', 'desc');
+        //for not admin users show only their records
+        if (!$isAdmin) {
+            $employeeId = auth()->user()->employee->id;
+            $grid->model()->where('employee_id', $employeeId);
+        }
+
+        //TODO filter by name
         $grid->column('id', __('Id'));
+        if ($isAdmin) {
+            $grid->column('employee', __('employee'))->display(function ($item) {
+                return Employee::getFIO($item['name'], $item['surname'], $item['parent_name']);
+            });
+        }
         $grid->column('title', __('title'));
         $grid->column('type', __('type'));
-        //TODO format as date not datetime
-        $grid->column('date_from', __('date_from'))->date();
-        $grid->column('date_to', __('date_to'))->date();
+        $grid->column('date_from', __('date_from'))->display(function ($name) {
+            return Carbon::parse($name)->format('d-m-Y');
+        })->date();
+        // ->date();
+        $grid->column('date_to', __('date_to'))->display(function ($name) {
+            return Carbon::parse($name)->format('d-m-Y');
+        })->date();
         $grid->column('days', __('N of days'));
         $grid->column('reason', __('reason'));
         // $grid->column('is_approved')->bool();
@@ -45,8 +63,9 @@ class LeaveController extends AdminController
             'on' => ['text' => 'YES'],
             'off' => ['text' => 'NO'],
         ];
-
-        $grid->column('is_approved')->switch($states);
+        if ($isAdmin) {
+            $grid->column('is_approved')->switch($states);
+        }
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
 
@@ -62,9 +81,27 @@ class LeaveController extends AdminController
      */
     protected function detail($id)
     {
+        $isAdmin = !auth()->user()->employee;
+
+
         $show = new Show(Leave::findOrFail($id));
 
         $show->id('ID');
+
+        if ($isAdmin) {
+            $show->employee('Employee information', function ($user) {
+
+                // $author->setResource('/admin/users');
+                $user->id();
+                $user->fullname();
+
+                $user->panel()->tools(function ($tools) {
+                    $tools->disableEdit();
+                    $tools->disableList();
+                    $tools->disableDelete();
+                });
+            });
+        };
         $show->title('title');
         $show->type('type');
         $show->date_from('date_from');
@@ -78,6 +115,29 @@ class LeaveController extends AdminController
         return $show;
     }
 
+
+    public function edit($id, Content $content)
+    {
+        $isAdmin = !auth()->user()->employee;
+
+        if (!$isAdmin) {
+            $leave =  Leave::find($id);
+            if ($leave->is_approved) {
+                return $content
+                    ->withError('Не доступно', 'Ви не можете редагувати погоджену заяву');
+            }
+        }
+
+        return $content
+
+            ->title($this->title())
+
+            ->description($this->description['edit'] ?? trans('admin.edit'))
+
+            ->body($this->form()->edit($id));
+    }
+
+
     /**
      * Make a form builder.
      *
@@ -85,9 +145,11 @@ class LeaveController extends AdminController
      */
     protected function form()
     {
+        $isAdmin = !auth()->user()->employee;
+        $isUpdate = Arr::last(explode('/', request()->getPathInfo())) == 'edit';
         $leave = new Leave();
-        $leave->employee_id = 1;
-        $leave->type = 1;
+        if (!$isUpdate)
+            $leave->employee_id = auth()->user()->employee->id;
         $form = new Form($leave);
 
         $form->display('id', 'ID');
@@ -113,21 +175,28 @@ class LeaveController extends AdminController
             // 0 => ['text' => 'NO'],
         ];
 
-        $form->switch('is_approved')->states($states);
+        if ($isAdmin) {
+            $form->switch('is_approved')->states($states);
+        }
 
-        // ->switch($states);
         return $form;
     }
 
 
     public function calendar(Content $content)
     {
+        $isAdmin = !auth()->user()->employee;
+
         $items = Leave::query()
-            ->where('is_approved', 1)
+            ->when($isAdmin, function ($q) {
+                return $q->where('is_approved', 1);
+            })
+            ->when(!$isAdmin, function ($q) {
+                return $q->where('employee_id', auth()->user()->employee->id);
+            })
             ->get();
         $events = [];
 
-        //TODO better event name
         foreach ($items as $item) {
             if ($item->type == Leave::TYPE_DAY_OFF) {
                 $color = 'green';
@@ -137,9 +206,16 @@ class LeaveController extends AdminController
             } else if ($item->type == Leave::TYPE_VACATION) {
                 $color = null; //default blue
             }
-
+            if ($isAdmin) {
+                $name  = 'Leave for ' . $item->employee->user->username . ' (' . $item->type . ')';
+            } else {
+                if ($item->is_approved)
+                    $name = $item->title . ' (Not approved)';
+                else
+                    $name = $item->title;
+            }
             $events[] = \Calendar::event(
-                'Leave for user [user]', //event title
+                $name, //event title
                 true, //full day event?
                 $item->date_from, //start time (you can also use Carbon instead of DateTime)
                 $item->date_to, //end time (you can also use Carbon instead of DateTime)

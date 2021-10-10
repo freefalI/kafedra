@@ -62,9 +62,9 @@ class Leave extends Model
         });
     }
 
-    public function users()
+    public function employee()
     {
-        return $this->belongsTo('App\User', 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
     public function scopeApproved($query)
