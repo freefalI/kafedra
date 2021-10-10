@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Employee\Extract;
 use App\Models\Employee;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Controllers\AdminController;
@@ -45,6 +46,9 @@ class EmployeeController extends AdminController
             // $filter->between('created_at','Created time')->datetime();
         });
 
+        $grid->actions(function ($actions) {
+            $actions->add(new Extract);
+        });
         return $grid;
     }
 
