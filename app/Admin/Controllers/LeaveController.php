@@ -103,7 +103,19 @@ class LeaveController extends AdminController
         $form->textarea('reason', 'reason');
         $form->display('created_at', 'Created time');
         // $form->display('updated_at','Updated at');
+        // $form->checkbox('is_approved')->options(['1' => 'Yes']);
 
+
+        $states = [
+            'on'  => ['value' => 1, 'text' => 'Yes', 'color' => 'success'],
+            'off' => ['value' => 0, 'text' => 'No', 'color' => 'danger'],
+            // 1 => ['text' => 'YES'],
+            // 0 => ['text' => 'NO'],
+        ];
+
+        $form->switch('is_approved')->states($states);
+
+        // ->switch($states);
         return $form;
     }
 
@@ -155,6 +167,13 @@ class LeaveController extends AdminController
     public function update($id)
     {
         if (request()->has('is_approved')) {
+            $ia = request()->input('is_approved');
+            if ($ia === 'on') {
+                request()->merge(['is_approved' => 1]);
+            } else if ($ia == 'off') {
+                request()->merge(['is_approved' => 0]);
+            }
+
             Leave::where('id', $id)->update(request()->only(['is_approved']));
         }
 
