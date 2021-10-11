@@ -11,6 +11,25 @@
         body {
             font-family: DejaVu Sans
         }
+
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-collapse: collapse;s
+        }
+
+        .table th {
+            font-weight: bold;
+            padding: 5px;
+            background: #efefef;
+            border: 1px solid #dddddd;
+        }
+
+        .table td {
+            border: 1px solid #dddddd;
+            padding: 5px;
+        }
     </style>
     <!-- <link rel="stylesheet" href="{{public_path('tailwind.min.css')}}"> -->
     <!-- TODO styles for table -->
@@ -39,7 +58,7 @@
                 @endforeach
             </tbody>
         </table>
-   <!--Talwind       <table class="table-auto">
+        <!--Talwind       <table class="table-auto">
             <thead>
                 <tr>
                     <th>#</th>
