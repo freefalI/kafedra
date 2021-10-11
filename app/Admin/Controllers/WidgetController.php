@@ -40,7 +40,7 @@ class WidgetController extends AdminController
                             ->orWhere(['date_from' => now()->startOfDay(), 'date_to' => now()->startOfDay()]);
                     });
                 })
-                // ->where('is_approved',1)
+                ->where('is_approved',1)
                 // ->groupBy('employee_id')
                 ->count();
 
@@ -65,7 +65,7 @@ class WidgetController extends AdminController
                 'file',
                 'red',
                 'leaves',
-                5
+                Leave::where('is_approved','!=',1)->count()
             )); //TODO leaves where ststus pending
 
             //book
