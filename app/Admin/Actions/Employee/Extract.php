@@ -61,7 +61,7 @@ class Extract extends RowAction
         }
         $title = "Витяг за {$start->month}, {$start->year} для {$employee->full_name}";
         $pdf = PDF::loadView('admin.extract', compact(['data', 'title']));
-        $filename = 'table_'.$employee->id.'.pdf';
+        $filename = 'tabels/tabel_'.$employee->id.'.pdf';
 
         $pdf->save(public_path($filename));
 
