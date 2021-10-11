@@ -4,6 +4,4 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css" />
 
 {!! $calendar->calendar() !!}
-<!-- TODO now working when came from another menu tab -->
 {!! $calendar->script() !!}
-<!-- {!! str_replace('DOMContentLoaded','ready',$calendar->script()) !!} -->
