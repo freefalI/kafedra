@@ -19,6 +19,9 @@ class CreateEmployeesTable extends Migration
             $table->string('surname');
             $table->string('parent_name')->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('academic_title_id');
+            $table->unsignedBigInteger('science_degree_id');
+            $table->unsignedBigInteger('position_id');//TODO test all this
 
             // $table->integer('position_id');
             // $table->date('hire_date')->nullable();

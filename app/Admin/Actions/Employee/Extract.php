@@ -19,6 +19,8 @@ class Extract extends RowAction
         $start = now()->startOfMonth();
         $i = clone $start;
         $data = [];
+        $workDays = 0;
+        $paidDays = 0;
         while (true) {
             $amount = 1;
             $date = $i->format('d-m-Y');
@@ -46,6 +48,11 @@ class Extract extends RowAction
                         $amount = 1; // $employee->salary_per_day;
                     }
                 }
+                if($amount)
+                    $paidDays++;
+
+                if(!isset($type))
+                    $workDays++;
                 $data[] =
                     [
                         'date' => $date,
@@ -60,7 +67,7 @@ class Extract extends RowAction
                 break;
         }
         $title = "Витяг за {$start->month}, {$start->year} для {$employee->full_name}";
-        $pdf = PDF::loadView('admin.extract', compact(['data', 'title']));
+        $pdf = PDF::loadView('admin.extract', compact(['data', 'title','paidDays','workDays']));
         $filename = 'tabels/tabel_'.$employee->id.'.pdf';
 
         $pdf->save(public_path($filename));

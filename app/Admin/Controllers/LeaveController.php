@@ -57,7 +57,7 @@ class LeaveController extends AdminController
             return Carbon::parse($name)->format('d-m-Y');
         })->date();
         $grid->column('days', __('N of days'));
-        $grid->column('reason', __('reason'));
+        // $grid->column('reason', __('reason'));
         // $grid->column('is_approved')->bool();
         $states = [
             'on' => ['text' => 'YES'],
@@ -207,7 +207,8 @@ class LeaveController extends AdminController
                 $color = null; //default blue
             }
             if ($isAdmin) {
-                $name  = 'Leave for ' . $item->employee->user->username . ' (' . $item->type . ')';
+                // $name  = 'Leave for ' . $item->employee->user->username . ' (' . $item->type . ')';
+                $name  = 'Leave for ' . $item->employee-> getUserFio(). ' (' . $item->type . ')';
             } else {
                 if ($item->is_approved)
                     $name = $item->title . ' (Not approved)';

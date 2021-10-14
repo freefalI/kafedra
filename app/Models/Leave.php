@@ -29,7 +29,8 @@ class Leave extends Model
 
     const TYPE_DAY_OFF = 'Day off',
         TYPE_SICK_DAY = 'Sick day',
-        TYPE_VACATION = 'Vacation';
+        TYPE_VACATION = 'Vacation',
+        TYPE_BUISINESS_TRIP = 'Відрядження';
 
     public static function boot()
     {

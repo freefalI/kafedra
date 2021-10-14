@@ -15,13 +15,33 @@ class Employee extends Model
         return $this->surname . ' ' . $this->name . ' ' . $this->parent_name;
     }
 
+    public function getUserFio()
+    {
+        return self::getFIO($this->name,$this->surname, $this->parent_name);
+    }
+
     public function user()
     {
         return $this->belongsTo(Administrator::class, 'user_id');
     }
 
+    public function scienceDegree()
+    {
+        return $this->belongsTo(ScienceDegree::class, 'science_degree_id');
+    }
+
+    public function academicTitle()
+    {
+        return $this->belongsTo(AcademicTitle::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
+    }
+
     public static function getFIO($name, $surname, $parent_name)
     {
-        return $surname . ' ' . $name[0] . '. ' . $parent_name[0] . '.';
+        return $surname . ' ' . mb_substr($name, 0, 1) . '. ' . mb_substr($parent_name, 0, 1) . '.';
     }
 }

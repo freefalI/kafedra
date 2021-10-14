@@ -3,7 +3,10 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Employee\Extract;
+use App\Models\AcademicTitle;
 use App\Models\Employee;
+use App\Models\Position;
+use App\Models\ScienceDegree;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -44,6 +47,15 @@ class EmployeeController extends AdminController
             // $filter->equal('position_id','Position id')->integer();
             // $filter->between('hire_date','Hire date')->date();
             // $filter->between('created_at','Created time')->datetime();
+
+            $options = ScienceDegree::latest()->get()->pluck('title','id');
+            $filter->in('science_degree_id','Науковий ступінь')->checkbox($options);
+
+            $options = AcademicTitle::latest()->get()->pluck('title','id');
+            $filter->in('academic_title_id','Вчене звання')->checkbox($options);
+
+            $options = Position::latest()->get()->pluck('title','id');
+            $filter->in('position_id','Посада')->checkbox($options);
         });
 
         $grid->actions(function ($actions) {
@@ -67,9 +79,14 @@ class EmployeeController extends AdminController
         $show->surname('Surname');
         $show->parent_name('Parent name');
         $show->created_at('Created time');
+        // $show->{'user.name'}('Користувач');
+        $show->{'scienceDegree.title'}('Науковий ступінь');
+        $show->{'academicTitle.title'}('Вчене звання');
+        $show->{'position.title'}('Посада');
+
+
         // $show->updated_at('Updated at');
         $show->user('User information', function ($user) {
-
             // $author->setResource('/admin/users');
             $user->id();
             $user->name();
@@ -102,7 +119,7 @@ class EmployeeController extends AdminController
         $form->display('created_at', 'Created time');
         // $form->display('updated_at','Updated at');
 
-
+        //TODO except main admin
         $form->select('user_id', 'Користувач')->options(function ($id) {
             $user = Administrator::find($id);
             if ($user) {
@@ -110,6 +127,14 @@ class EmployeeController extends AdminController
             }
         })->ajax('/admin/api/users');
 
+        $options = ScienceDegree::latest()->get()->pluck('title','id');
+        $form->radio('science_degree_id','Науковий ступінь')->options($options->toArray())->stacked();
+
+        $options = AcademicTitle::latest()->get()->pluck('title','id');
+        $form->radio('academic_title_id','Вчене звання')->options($options->toArray())->stacked();
+
+        $options = Position::latest()->get()->pluck('title','id');
+        $form->radio('position_id','Посада')->options($options->toArray())->stacked();
 
         return $form;
     }

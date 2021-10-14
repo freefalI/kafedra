@@ -58,6 +58,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <strong>Робочих днів - {{$workDays}}</strong>
+        <strong>Оплачуваних днів - {{$paidDays}}</strong>
+
         <!--Talwind       <table class="table-auto">
             <thead>
                 <tr>
