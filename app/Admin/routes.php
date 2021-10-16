@@ -21,6 +21,11 @@ Route::group([
     $router->resource('leaves', LeaveController::class);
     $router->get('leaves-calendar', 'LeaveController@calendar');
     $router->get('widgets', 'WidgetController@index');
+
+    $router->resource('degrees', ScienceDegreeController::class);
+    $router->resource('titles', AcademicTitleController::class);
+    $router->resource('positions', PositionController::class);
+
 });
 
 Route::group([
