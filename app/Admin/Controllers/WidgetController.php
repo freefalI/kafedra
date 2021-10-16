@@ -25,7 +25,7 @@ class WidgetController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Widgets';
+    protected $title = 'Dashboard';
 
     public function index(Content $content)
     {
@@ -77,7 +77,7 @@ class WidgetController extends AdminController
                 'certifications for this year',
                 'book',
                 'yellow',
-                'certifications',
+                'certification',
                 Certification::where('date', '>',now()->startOfYear())->count()
             ));
 

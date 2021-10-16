@@ -20,7 +20,7 @@ class EmployeeController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Employee';
+    protected $title = 'Робітники';
 
     /**
      * Make a grid builder.
@@ -32,6 +32,8 @@ class EmployeeController extends AdminController
         $grid = new Grid(new Employee());
 
         $grid->id('ID')->sortable();
+        $grid->column('user.avatar', __('avatar'))->image('',70, 70);
+
         $grid->name('Name')->sortable();
         $grid->surname('Surname')->sortable();
         $grid->parent_name('Parent name')->sortable();
@@ -91,7 +93,8 @@ class EmployeeController extends AdminController
             $user->id();
             $user->name();
             $user->username();
-
+            // $user->{'user.avatar'}( __('avatar'))->image('',70, 70);
+            $user->avatar()->image();
             $user->panel()->tools(function ($tools) {
                 $tools->disableEdit();
                 $tools->disableList();
@@ -160,6 +163,7 @@ class EmployeeController extends AdminController
             }
         })->ajax('/admin/api/users');
 
+        // $form->image('user.avatar');
         $options = ScienceDegree::latest()->get()->pluck('title', 'id');
         $form->radio('science_degree_id', 'Науковий ступінь')->options($options->toArray())->stacked();
 

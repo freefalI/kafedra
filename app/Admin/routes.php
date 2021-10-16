@@ -23,7 +23,7 @@ Route::group([
     $router->resource('certification', CertificationController::class);
 
     $router->get('leaves-calendar', 'LeaveController@calendar');
-    $router->get('widgets', 'WidgetController@index');
+    $router->get('dashboard', 'WidgetController@index');
 
     $router->resource('degrees', ScienceDegreeController::class);
     $router->resource('titles', AcademicTitleController::class);

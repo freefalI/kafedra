@@ -57,7 +57,7 @@ class Extract extends RowAction
                     [
                         'date' => $date,
                         'amount' => $amount,
-                        'type' => $type ?? 'Work'
+                        'type' => $type ?? 'Робочий'
                     ];
             }
 

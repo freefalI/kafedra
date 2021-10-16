@@ -27,9 +27,9 @@ class Leave extends Model
 
     protected $dates = ['date_from', 'date_to'];
 
-    const TYPE_DAY_OFF = 'Day off',
-        TYPE_SICK_DAY = 'Sick day',
-        TYPE_VACATION = 'Vacation',
+    const TYPE_DAY_OFF = 'Відгул',
+        TYPE_SICK_DAY = 'Лікарняний',
+        TYPE_VACATION = 'Відпустка',
         TYPE_BUISINESS_TRIP = 'Відрядження';
 
     public static function boot()
@@ -71,5 +71,14 @@ class Leave extends Model
     public function scopeApproved($query)
     {
         return $query->where('is_approved', true);
+    }
+
+    public static function getTypes(){
+        return [
+            self::TYPE_DAY_OFF,
+            self::TYPE_SICK_DAY,
+            self::TYPE_VACATION,
+            self::TYPE_BUISINESS_TRIP,
+        ];
     }
 }

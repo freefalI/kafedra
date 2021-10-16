@@ -21,7 +21,7 @@ class LeaveController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Leaves';
+    protected $title = 'Вихідні';
     //TODO disable creating button
     /**
      * Make a grid builder.
@@ -160,6 +160,7 @@ class LeaveController extends AdminController
             Leave::TYPE_DAY_OFF => Leave::TYPE_DAY_OFF,
             Leave::TYPE_SICK_DAY => Leave::TYPE_SICK_DAY,
             Leave::TYPE_VACATION => Leave::TYPE_VACATION,
+            Leave::TYPE_BUISINESS_TRIP => Leave::TYPE_BUISINESS_TRIP,
         ]);
 
         $form->textarea('reason', 'reason');
@@ -208,7 +209,7 @@ class LeaveController extends AdminController
             }
             if ($isAdmin) {
                 // $name  = 'Leave for ' . $item->employee->user->username . ' (' . $item->type . ')';
-                $name  = 'Leave for ' . $item->employee-> getUserFio(). ' (' . $item->type . ')';
+                $name  =  $item->employee-> getUserFio().' ,' .$item->type ;
             } else {
                 if ($item->is_approved)
                     $name = $item->title . ' (Not approved)';
