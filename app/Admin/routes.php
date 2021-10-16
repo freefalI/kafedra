@@ -19,6 +19,9 @@ Route::group([
     $router->resource('employees', EmployeeController::class);
     $router->resource('activities', ActivityController::class);
     $router->resource('leaves', LeaveController::class);
+    $router->resource('works', WorkController::class);
+    $router->resource('certification', CertificationController::class);
+
     $router->get('leaves-calendar', 'LeaveController@calendar');
     $router->get('widgets', 'WidgetController@index');
 
