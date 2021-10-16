@@ -3,9 +3,11 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Activity;
+use App\Models\Certification;
 use App\Models\Employee;
 use App\Models\Leave;
 use App\Models\ScienceDegree;
+use App\Models\Work;
 use Carbon\Carbon;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -71,6 +73,21 @@ class WidgetController extends AdminController
             )); //TODO leaves where ststus pending
 
 
+            $row->column(3, new Widgets\InfoBox(
+                'certifications for this year',
+                'book',
+                'yellow',
+                'certifications',
+                Certification::where('date', '>',now()->startOfYear())->count()
+            ));
+
+            $row->column(3, new Widgets\InfoBox(
+                'works for this year',
+                'book',
+                'green',
+                'works',
+                Work::where('published_at', '>',now()->startOfYear())->count()
+            ));
 
 
 
