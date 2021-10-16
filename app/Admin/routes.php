@@ -26,6 +26,8 @@ Route::group([
     $router->resource('titles', AcademicTitleController::class);
     $router->resource('positions', PositionController::class);
 
+    $router->resource('students', StudentController::class);
+
 });
 
 Route::group([
