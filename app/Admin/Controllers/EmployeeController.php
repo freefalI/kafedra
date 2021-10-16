@@ -48,14 +48,14 @@ class EmployeeController extends AdminController
             // $filter->between('hire_date','Hire date')->date();
             // $filter->between('created_at','Created time')->datetime();
 
-            $options = ScienceDegree::latest()->get()->pluck('title','id');
-            $filter->in('science_degree_id','Науковий ступінь')->checkbox($options);
+            $options = ScienceDegree::latest()->get()->pluck('title', 'id');
+            $filter->in('science_degree_id', 'Науковий ступінь')->checkbox($options);
 
-            $options = AcademicTitle::latest()->get()->pluck('title','id');
-            $filter->in('academic_title_id','Вчене звання')->checkbox($options);
+            $options = AcademicTitle::latest()->get()->pluck('title', 'id');
+            $filter->in('academic_title_id', 'Вчене звання')->checkbox($options);
 
-            $options = Position::latest()->get()->pluck('title','id');
-            $filter->in('position_id','Посада')->checkbox($options);
+            $options = Position::latest()->get()->pluck('title', 'id');
+            $filter->in('position_id', 'Посада')->checkbox($options);
         });
 
         $grid->actions(function ($actions) {
@@ -99,6 +99,39 @@ class EmployeeController extends AdminController
             });
         });
 
+        $show->works('Роботи', function ($certifications) {
+            // $author->setResource('/admin/users');
+            $certifications->id();
+            $certifications->title();
+            $certifications->description();
+            $certifications->source();
+            $certifications->published_at();
+
+            $certifications->disableCreateButton();
+            $certifications->disablePagination();
+            $certifications->disableFilter();
+            $certifications->disableExport();
+            $certifications->disableRowSelector();
+            $certifications->disableActions();
+            $certifications->disableColumnSelector();
+
+        });
+        $show->certifications('Підвищення кваліфікації', function ($certifications) {
+            // $author->setResource('/admin/users');
+            $certifications->id();
+            $certifications->title();
+            $certifications->description();
+            $certifications->date();
+
+            $certifications->disableCreateButton();
+            $certifications->disablePagination();
+            $certifications->disableFilter();
+            $certifications->disableExport();
+            $certifications->disableRowSelector();
+            $certifications->disableActions();
+            $certifications->disableColumnSelector();
+        });
+
         return $show;
     }
 
@@ -127,14 +160,14 @@ class EmployeeController extends AdminController
             }
         })->ajax('/admin/api/users');
 
-        $options = ScienceDegree::latest()->get()->pluck('title','id');
-        $form->radio('science_degree_id','Науковий ступінь')->options($options->toArray())->stacked();
+        $options = ScienceDegree::latest()->get()->pluck('title', 'id');
+        $form->radio('science_degree_id', 'Науковий ступінь')->options($options->toArray())->stacked();
 
-        $options = AcademicTitle::latest()->get()->pluck('title','id');
-        $form->radio('academic_title_id','Вчене звання')->options($options->toArray())->stacked();
+        $options = AcademicTitle::latest()->get()->pluck('title', 'id');
+        $form->radio('academic_title_id', 'Вчене звання')->options($options->toArray())->stacked();
 
-        $options = Position::latest()->get()->pluck('title','id');
-        $form->radio('position_id','Посада')->options($options->toArray())->stacked();
+        $options = Position::latest()->get()->pluck('title', 'id');
+        $form->radio('position_id', 'Посада')->options($options->toArray())->stacked();
 
         return $form;
     }

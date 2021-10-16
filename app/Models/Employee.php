@@ -44,4 +44,14 @@ class Employee extends Model
     {
         return $surname . ' ' . mb_substr($name, 0, 1) . '. ' . mb_substr($parent_name, 0, 1) . '.';
     }
+
+    public function certifications()
+    {
+        return $this->hasMany(Certification::class);
+    }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
 }
