@@ -17,14 +17,17 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->string('parent_name')->nullable();
+            $table->string('parent_name');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('academic_title_id');
             $table->unsignedBigInteger('science_degree_id');
-            $table->unsignedBigInteger('position_id');//TODO test all this
+            $table->unsignedBigInteger('position_id');
+            $table->date('hire_date');
+            $table->string('email');
+            $table->string('dob');
+            $table->string('phone');
+            $table->string('employment_id');
 
-            // $table->integer('position_id');
-            // $table->date('hire_date')->nullable();
             $table->timestamps();
         });
     }

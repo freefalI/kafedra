@@ -7,6 +7,7 @@ use App\Models\AcademicTitle;
 use App\Models\Employee;
 use App\Models\Position;
 use App\Models\ScienceDegree;
+use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -20,7 +21,7 @@ class EmployeeController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Робітники';
+    protected $title = 'Працівники';
 
     /**
      * Make a grid builder.
@@ -31,17 +32,32 @@ class EmployeeController extends AdminController
     {
         $grid = new Grid(new Employee());
 
-        $grid->id('ID')->sortable();
-        $grid->column('user.avatar', __('avatar'))->image('',70, 70);
+        $grid->id('ID');
+        $grid->column('user.avatar', __('avatar'))->image('', 70, 70);
+        // $grid->display(function ($item) {
+        //     // dd($item);
+        //     return Employee::getFIO($item['name'], $item['surname'], $item['parent_name']);
+        // });
 
-        $grid->name('Name')->sortable();
-        $grid->surname('Surname')->sortable();
-        $grid->parent_name('Parent name')->sortable();
-        // $grid->position_id('Position id')->sortable();
-        // $grid->hire_date('Hire date')->sortable();
-        // $grid->created_at('Created at')->sortable();
-        // $grid->updated_at('Updated at')->sortable();
 
+        $grid->column('full_name')->display(function () {
+            return $this->full_name;
+        });
+
+        $grid->email('email');
+        $grid->phone('phone');
+        $grid->column('hire_date', __('hire_date'))->display(function ($name) {
+            return Carbon::parse($name)->format('d-m-Y');
+        });
+        $grid->column('dob', __('dob'))->display(function ($name) {
+            return Carbon::parse($name)->format('d-m-Y');
+        });
+
+        // $grid->created_at('Created at');
+        // $grid->updated_at('Updated at');
+        $grid->column('scienceDegree.title', __('scienceDegree'));
+        $grid->column('academicTitle.title', __('academicTitle'));
+        $grid->column('position.title', __('position'));
         $grid->filter(function ($filter) {
             $filter->like('name', 'Name');
             $filter->like('surname', 'Surname');
@@ -80,7 +96,12 @@ class EmployeeController extends AdminController
         $show->name('Name');
         $show->surname('Surname');
         $show->parent_name('Parent name');
-        $show->created_at('Created time');
+        $show->email('email');
+        $show->phone('phone');
+        $show->hire_date('hire_date');
+        $show->dob('dob');
+        $show->employment_id('employment_id');
+        // $show->field('student_id', __('student_id'));
         // $show->{'user.name'}('Користувач');
         $show->{'scienceDegree.title'}('Науковий ступінь');
         $show->{'academicTitle.title'}('Вчене звання');
@@ -117,7 +138,6 @@ class EmployeeController extends AdminController
             $certifications->disableRowSelector();
             $certifications->disableActions();
             $certifications->disableColumnSelector();
-
         });
         $show->certifications('Підвищення кваліфікації', function ($certifications) {
             // $author->setResource('/admin/users');
@@ -134,6 +154,7 @@ class EmployeeController extends AdminController
             $certifications->disableActions();
             $certifications->disableColumnSelector();
         });
+        $show->created_at('Created time');
 
         return $show;
     }
@@ -151,8 +172,11 @@ class EmployeeController extends AdminController
         $form->text('name', 'Name');
         $form->text('surname', 'Surname');
         $form->text('parent_name', 'Parent name');
-
-        $form->display('created_at', 'Created time');
+        $form->email('email');
+        $form->text('phone');
+        $form->date('hire_date');
+        $form->date('dob');
+        $form->text('employment_id');
         // $form->display('updated_at','Updated at');
 
         //TODO except main admin

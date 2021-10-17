@@ -22,7 +22,7 @@ INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `p
 (5, 2, 17, 'Permission', 'fa-ban', 'auth/permissions', NULL, NULL, '2021-10-16 15:03:23'),
 (6, 2, 18, 'Menu', 'fa-bars', 'auth/menu', NULL, NULL, '2021-10-16 15:03:23'),
 (7, 2, 19, 'Operation log', 'fa-history', 'auth/logs', NULL, NULL, '2021-10-16 15:03:23'),
-(8, 0, 6, 'Робітники', 'fa-users', 'employees', 'employees', '2021-09-19 13:01:13', '2021-10-16 16:45:01'),
+(8, 0, 6, 'Працівники', 'fa-users', 'employees', 'employees', '2021-09-19 13:01:13', '2021-10-16 16:45:01'),
 (10, 11, 8, 'Список', 'fa-bars', 'leaves', NULL, '2021-10-09 12:56:58', '2021-10-16 10:37:21'),
 (11, 0, 7, 'Вихідні', 'fa-bars', NULL, 'leaves', '2021-10-09 14:15:05', '2021-10-16 16:45:28'),
 (12, 11, 9, 'Календар', 'fa-bars', 'leaves-calendar', NULL, '2021-10-09 14:15:49', '2021-10-16 10:37:21'),
@@ -48,7 +48,7 @@ INSERT INTO `admin_permissions` (`id`, `name`, `slug`, `http_method`, `http_path
 (5, 'Auth management', 'auth.management', '', '/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs', NULL, NULL),
 (8, 'Dashboard', 'dashboard', 'GET', '/dashboard', '2021-10-16 16:34:10', '2021-10-16 16:35:04'),
 (9, 'Наукові ступені, ...', 'labels', '', '/degrees\r\n/titles\r\n/positions', '2021-10-16 16:36:22', '2021-10-16 16:36:22'),
-(10, 'Робітники', 'employees', '', '/employees', '2021-10-16 16:37:17', '2021-10-16 16:37:17'),
+(10, 'Працівники', 'employees', '', '/employees', '2021-10-16 16:37:17', '2021-10-16 16:37:17'),
 (11, 'Студенти', 'students', '', '/students*', '2021-10-16 16:37:37', '2021-10-16 16:37:37'),
 (12, 'Наука. Роботи, Підвищення кваліфікації', 'science', '', '/works*\r\n/certification*', '2021-10-16 16:38:31', '2021-10-16 16:38:31'),
 (13, 'Вихідні', 'leaves', '', '/leaves\r\n/leaves-calendar', '2021-10-16 16:38:59', '2021-10-16 16:38:59');

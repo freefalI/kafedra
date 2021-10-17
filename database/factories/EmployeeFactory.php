@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Employee;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -29,15 +30,11 @@ class EmployeeFactory extends Factory
             'name' => $this->faker->firstName($gender),
             'surname' => $this->faker->lastName($gender),
             'parent_name'=>$this->faker->middleName($gender),
-            // 'position_id' =>NULL,
-            // 'hire_date'=>$faker->date($format = 'Y-m-d',$max='2010-01-01'),
-            // 'salary'=>$faker->randomFloat($nbMaxDecimals = NULL,$min = 1000, $max = 10000),
-            // 'parent_id' => NULL,
-            // 'parent_name' => $this->faker->surname(),
-            // 'email' => $this->faker->unique()->safeEmail(),
-            // 'email_verified_at' => now(),
-            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            // 'remember_token' => Str::random(10),
+            'hire_date'=>$this->faker->date($format = 'Y-m-d',$max=now()),
+            'email' => $this->faker->unique()->safeEmail(),
+            'dob' => Carbon::createFromDate($this->faker->dateTimeBetween('-60 years', '-30 years'))->toDateString(),
+            'phone' => $this->faker->e164PhoneNumber(),
+            'employment_id' => random_int(11111111, 99999999),
         ];
     }
 
