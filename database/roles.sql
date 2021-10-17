@@ -16,12 +16,12 @@
 --
 
 INSERT INTO `admin_menu` (`id`, `parent_id`, `order`, `title`, `icon`, `uri`, `permission`, `created_at`, `updated_at`) VALUES
-(2, 0, 14, 'Admin', 'fa-tasks', '', NULL, NULL, '2021-10-16 15:03:23'),
-(3, 2, 15, 'Users', 'fa-users', 'auth/users', NULL, NULL, '2021-10-16 15:03:23'),
-(4, 2, 16, 'Roles', 'fa-user', 'auth/roles', NULL, NULL, '2021-10-16 15:03:23'),
-(5, 2, 17, 'Permission', 'fa-ban', 'auth/permissions', NULL, NULL, '2021-10-16 15:03:23'),
-(6, 2, 18, 'Menu', 'fa-bars', 'auth/menu', NULL, NULL, '2021-10-16 15:03:23'),
-(7, 2, 19, 'Operation log', 'fa-history', 'auth/logs', NULL, NULL, '2021-10-16 15:03:23'),
+(2, 0, 14, 'Управління системою', 'fa-tasks', '', NULL, NULL, '2021-10-16 15:03:23'),
+(3, 2, 15, 'Користувачі', 'fa-users', 'auth/users', NULL, NULL, '2021-10-16 15:03:23'),
+(4, 2, 16, 'Ролі', 'fa-user', 'auth/roles', NULL, NULL, '2021-10-16 15:03:23'),
+(5, 2, 17, 'Доступ', 'fa-ban', 'auth/permissions', NULL, NULL, '2021-10-16 15:03:23'),
+(6, 2, 18, 'Меню', 'fa-bars', 'auth/menu', NULL, NULL, '2021-10-16 15:03:23'),
+(7, 2, 19, 'Журнал подій', 'fa-history', 'auth/logs', NULL, NULL, '2021-10-16 15:03:23'),
 (8, 0, 6, 'Працівники', 'fa-users', 'employees', 'employees', '2021-09-19 13:01:13', '2021-10-16 16:45:01'),
 (10, 11, 8, 'Список', 'fa-bars', 'leaves', NULL, '2021-10-09 12:56:58', '2021-10-16 10:37:21'),
 (11, 0, 7, 'Вихідні', 'fa-bars', NULL, 'leaves', '2021-10-09 14:15:05', '2021-10-16 16:45:28'),

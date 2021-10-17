@@ -7,6 +7,7 @@ use App\Models\Certification;
 use App\Models\Employee;
 use App\Models\Leave;
 use App\Models\ScienceDegree;
+use App\Models\Student;
 use App\Models\Work;
 use Carbon\Carbon;
 use Encore\Admin\Controllers\AdminController;
@@ -50,14 +51,14 @@ class WidgetController extends AdminController
 
             $total = Employee::count();
             $row->column(3, new Widgets\InfoBox(
-                'Total employees',
+                'Всього працівників',
                 'users',
                 'aqua',
                 'employees',
                 $total
             ));
             $row->column(3, new Widgets\InfoBox(
-                'Available employees',
+                'Доступно працівників',
                 'users',
                 'green',
                 'leaves-calendar',
@@ -65,7 +66,7 @@ class WidgetController extends AdminController
             ));
             // $row->column(3, new Widgets\InfoBox('Articles', 'book', 'yellow', '/demo/articles', '2786'));
             $row->column(3, new Widgets\InfoBox(
-                'Pending applications',
+                'Заяв на розгляд',
                 'file',
                 'red',
                 'leaves',
@@ -74,7 +75,7 @@ class WidgetController extends AdminController
 
 
             $row->column(3, new Widgets\InfoBox(
-                'certifications for this year',
+                'Підвищення кваліфікації за рік',
                 'book',
                 'yellow',
                 'certification',
@@ -82,14 +83,20 @@ class WidgetController extends AdminController
             ));
 
             $row->column(3, new Widgets\InfoBox(
-                'works for this year',
+                'Видано робіт за рік',
                 'book',
                 'green',
                 'works',
                 Work::where('published_at', '>',now()->startOfYear())->count()
             ));
 
-
+            $row->column(3, new Widgets\InfoBox(
+                'Студентів',
+                'book',
+                'red',
+                'students',
+                Student::count()
+            ));
 
             //book
             //file

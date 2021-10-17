@@ -71,11 +71,11 @@ class WorkController extends AdminController
         $show->id('ID');
 
         if ($isAdmin) {
-            $show->employee('Employee information', function ($user) {
+            $show->employee('Працівник', function ($user) {
 
                 // $author->setResource('/admin/users');
                 $user->id();
-                $user->fullname();
+                $user->fullname(__('fullname'));
 
                 $user->panel()->tools(function ($tools) {
                     $tools->disableEdit();
@@ -84,11 +84,11 @@ class WorkController extends AdminController
                 });
             });
         };
-        $show->title('title');
-        $show->description('description');
-        $show->source('source');
-        $show->published_at('published_at');
-        $show->created_at();
+        $show->title(__('title'));
+        $show->description(__('description'));
+        $show->source(__('source'));
+        $show->published_at(__('published_at'));
+        $show->created_at(__('created_at'));
         //TODO format columns
 
         return $show;
@@ -136,12 +136,12 @@ class WorkController extends AdminController
 
         $form = new Form($leave);
 
-        $form->display('id', 'ID');
-        $form->text('title', 'title');
-        $form->textarea('description', 'description');
-        $form->text('source', 'source');
-        $form->date('published_at', 'published_at');
-        $form->display('created_at', 'Created time');
+        $form->display('id', __('id'));
+        $form->text('title', __('title'));
+        $form->textarea('description', __('description'));
+        $form->text('source', __('source'));
+        $form->date('published_at', __('published_at'));
+        $form->display('created_at', __('created_at'));
         if ($isAdmin) {
             // Subtable fields
             $form->select('employee_id', 'Працівник')->options(function ($id) {

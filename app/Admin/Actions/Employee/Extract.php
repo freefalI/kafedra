@@ -66,7 +66,7 @@ class Extract extends RowAction
             if ($i > $start->clone()->endOfMonth())
                 break;
         }
-        $title = "Витяг за {$start->month}, {$start->year} для {$employee->full_name}";
+        $title = "Витяг за {$start->month}.{$start->year} для {$employee->full_name}";
         $pdf = PDF::loadView('admin.extract', compact(['data', 'title','paidDays','workDays']));
         $filename = 'tabels/tabel_'.$employee->id.'.pdf';
 

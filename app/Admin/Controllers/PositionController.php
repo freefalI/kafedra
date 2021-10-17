@@ -45,7 +45,7 @@ class PositionController extends AdminController
 
         $show->field('id', __('ID'));
         $show->field('title', __('title'));
-        $show->field('created_at', __('Created at'));
+        $show->field('created_at', __('created_at'));
 
         return $show;
     }

@@ -42,9 +42,9 @@
             <thead>
                 <tr class="table-danger">
                     <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Paid</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Тип</th>
+                    <th scope="col">Оплачуваний</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{ $item['date'] }}</td>
                     <td>{{ $item['type'] }}</td>
-                    <td>{{ $item['amount'] ? 'Yes' : 'No' }}</td>
+                    <td>{{ $item['amount'] ? 'Так' : 'Ні' }}</td>
                 </tr>
                 @endforeach
             </tbody>

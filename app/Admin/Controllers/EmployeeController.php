@@ -44,8 +44,8 @@ class EmployeeController extends AdminController
             return $this->full_name;
         });
 
-        $grid->email('email');
-        $grid->phone('phone');
+        $grid->email(__('email'));
+        $grid->phone(__('phone'));
         $grid->column('hire_date', __('hire_date'))->display(function ($name) {
             return Carbon::parse($name)->format('d-m-Y');
         });
@@ -59,9 +59,9 @@ class EmployeeController extends AdminController
         $grid->column('academicTitle.title', __('academicTitle'));
         $grid->column('position.title', __('position'));
         $grid->filter(function ($filter) {
-            $filter->like('name', 'Name');
-            $filter->like('surname', 'Surname');
-            $filter->like('parent_name', 'Parent name');
+            $filter->like('name', __('name'));
+            $filter->like('surname', __('surname'));
+            $filter->like('parent_name', __('parent_name'));
             // $filter->equal('position_id','Position id')->integer();
             // $filter->between('hire_date','Hire date')->date();
             // $filter->between('created_at','Created time')->datetime();
@@ -92,15 +92,15 @@ class EmployeeController extends AdminController
     {
         $show = new Show(Employee::findOrFail($id));
 
-        $show->id('ID');
-        $show->name('Name');
-        $show->surname('Surname');
-        $show->parent_name('Parent name');
-        $show->email('email');
-        $show->phone('phone');
-        $show->hire_date('hire_date');
-        $show->dob('dob');
-        $show->employment_id('employment_id');
+        $show->id(__('ID'));
+        $show->name(__('name'));
+        $show->surname(__('surname'));
+        $show->parent_name(__('parent_name'));
+        $show->email(__('email'));
+        $show->phone(__('phone'));
+        $show->hire_date(__('hire_date'));
+        $show->dob(__('dob'));
+        $show->employment_id(__('employment_id'));
         // $show->field('student_id', __('student_id'));
         // $show->{'user.name'}('Користувач');
         $show->{'scienceDegree.title'}('Науковий ступінь');
@@ -109,13 +109,12 @@ class EmployeeController extends AdminController
 
 
         // $show->updated_at('Updated at');
-        $show->user('User information', function ($user) {
+        $show->user('Користувач', function ($user) {
             // $author->setResource('/admin/users');
-            $user->id();
-            $user->name();
-            $user->username();
-            // $user->{'user.avatar'}( __('avatar'))->image('',70, 70);
-            $user->avatar()->image();
+            $user->id(__('id'));
+            $user->name(__('name'));
+            $user->username(__('username'));
+            $user->avatar(__('avatar'))->image();
             $user->panel()->tools(function ($tools) {
                 $tools->disableEdit();
                 $tools->disableList();
@@ -125,11 +124,11 @@ class EmployeeController extends AdminController
 
         $show->works('Роботи', function ($certifications) {
             // $author->setResource('/admin/users');
-            $certifications->id();
-            $certifications->title();
-            $certifications->description();
-            $certifications->source();
-            $certifications->published_at();
+            $certifications->id(__('id'));
+            $certifications->title(__('title'));
+            $certifications->description(__('description'));
+            $certifications->source(__('source'));
+            $certifications->published_at(__('published_at'));
 
             $certifications->disableCreateButton();
             $certifications->disablePagination();
@@ -141,10 +140,10 @@ class EmployeeController extends AdminController
         });
         $show->certifications('Підвищення кваліфікації', function ($certifications) {
             // $author->setResource('/admin/users');
-            $certifications->id();
-            $certifications->title();
-            $certifications->description();
-            $certifications->date();
+            $certifications->id(__('id'));
+            $certifications->title(__('title'));
+            $certifications->description(__('description'));
+            $certifications->date(__('date'));
 
             $certifications->disableCreateButton();
             $certifications->disablePagination();
@@ -154,7 +153,7 @@ class EmployeeController extends AdminController
             $certifications->disableActions();
             $certifications->disableColumnSelector();
         });
-        $show->created_at('Created time');
+        $show->created_at(__('created_at'));
 
         return $show;
     }
@@ -168,15 +167,15 @@ class EmployeeController extends AdminController
     {
         $form = new Form(new Employee());
 
-        $form->display('id', 'ID');
-        $form->text('name', 'Name');
-        $form->text('surname', 'Surname');
-        $form->text('parent_name', 'Parent name');
-        $form->email('email');
-        $form->text('phone');
-        $form->date('hire_date');
-        $form->date('dob');
-        $form->text('employment_id');
+        $form->display('id', __('id'));
+        $form->text('name', __('name'));
+        $form->text('surname', __('surname'));
+        $form->text('parent_name', __('parent_name'));
+        $form->email('email',__('email'));
+        $form->text('phone',__('phone'));
+        $form->date('hire_date',__('hire_date'));
+        $form->date('dob',__('dob'));
+        $form->text('employment_id',__('employment_id'));
         // $form->display('updated_at','Updated at');
 
         //TODO except main admin

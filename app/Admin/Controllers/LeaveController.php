@@ -48,7 +48,7 @@ class LeaveController extends AdminController
             });
         }
         $grid->column('title', __('title'));
-        $grid->column('type', __('type'));
+        $grid->column('type', __('leave_type'));
         $grid->column('date_from', __('date_from'))->display(function ($name) {
             return Carbon::parse($name)->format('d-m-Y');
         })->date();
@@ -56,7 +56,7 @@ class LeaveController extends AdminController
         $grid->column('date_to', __('date_to'))->display(function ($name) {
             return Carbon::parse($name)->format('d-m-Y');
         })->date();
-        $grid->column('days', __('N of days'));
+        $grid->column('days', __('n_of_days'));
         // $grid->column('reason', __('reason'));
         // $grid->column('is_approved')->bool();
         $states = [
@@ -64,7 +64,7 @@ class LeaveController extends AdminController
             'off' => ['text' => 'NO'],
         ];
         if ($isAdmin) {
-            $grid->column('is_approved')->switch($states);
+            $grid->column('is_approved',__('is_approved'))->switch($states);
         }
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
@@ -89,11 +89,11 @@ class LeaveController extends AdminController
         $show->id('ID');
 
         if ($isAdmin) {
-            $show->employee('Employee information', function ($user) {
+            $show->employee('Працівник', function ($user) {
 
                 // $author->setResource('/admin/users');
-                $user->id();
-                $user->fullname();
+                $user->id(__('id'));
+                $user->fullname(__('fullname'));
 
                 $user->panel()->tools(function ($tools) {
                     $tools->disableEdit();
@@ -102,14 +102,14 @@ class LeaveController extends AdminController
                 });
             });
         };
-        $show->title('title');
-        $show->type('type');
-        $show->date_from('date_from');
-        $show->date_to('date_to');
-        $show->days();
-        $show->reason();
-        $show->is_approved();
-        $show->created_at();
+        $show->title(__('title'));
+        $show->type(__('leave_type'));
+        $show->date_from(__('date_from'));
+        $show->date_to(__('date_to'));
+        $show->days(__('n_of_days'));
+        $show->reason(__('reason'));
+        $show->is_approved(__('is_approved'));
+        $show->created_at(__('created_at'));
         //TODO format columns
 
         return $show;
@@ -152,19 +152,19 @@ class LeaveController extends AdminController
             $leave->employee_id = auth()->user()->employee->id;
         $form = new Form($leave);
 
-        $form->display('id', 'ID');
-        $form->text('title', 'title');
-        $form->date('date_from', 'date_from');
-        $form->date('date_to', 'date_to');
-        $form->radio('type', 'type')->options([
+        $form->display('id', __('id'));
+        $form->text('title', __('title'));
+        $form->date('date_from', __('date_from'));
+        $form->date('date_to', __('date_to'));
+        $form->radio('type', __('leave_type'))->options([
             Leave::TYPE_DAY_OFF => Leave::TYPE_DAY_OFF,
             Leave::TYPE_SICK_DAY => Leave::TYPE_SICK_DAY,
             Leave::TYPE_VACATION => Leave::TYPE_VACATION,
             Leave::TYPE_BUISINESS_TRIP => Leave::TYPE_BUISINESS_TRIP,
         ]);
 
-        $form->textarea('reason', 'reason');
-        $form->display('created_at', 'Created time');
+        $form->textarea('reason', __('reason'));
+        $form->display('created_at',   __('created_at'));
         // $form->display('updated_at','Updated at');
         // $form->checkbox('is_approved')->options(['1' => 'Yes']);
 
@@ -177,7 +177,7 @@ class LeaveController extends AdminController
         ];
 
         if ($isAdmin) {
-            $form->switch('is_approved')->states($states);
+            $form->switch('is_approved',__('is_approved'))->states($states);
         }
 
         return $form;
@@ -212,7 +212,7 @@ class LeaveController extends AdminController
                 $name  =  $item->employee-> getUserFio().' ,' .$item->type ;
             } else {
                 if ($item->is_approved)
-                    $name = $item->title . ' (Not approved)';
+                    $name = $item->title . ' (Не погоджено)';
                 else
                     $name = $item->title;
             }
@@ -228,9 +228,9 @@ class LeaveController extends AdminController
             );
         }
 
-        $calendar =  \Calendar::addEvents($events);
+        $calendar =  \Calendar::addEvents($events)->setOptions(['lang'=>'uk']);
         return $content
-            ->title('Leaves calendar')
+            ->title('Вихідні')
             ->view('admin.calendar', compact('calendar'));
     }
 

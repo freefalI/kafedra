@@ -39,7 +39,7 @@ class CertificationController extends AdminController
             $grid->model()->where('employee_id', $employeeId);
         }
 
-        $grid->column('id', __('Id'));
+        $grid->column('id', __('id'));
         if ($isAdmin) {
             $grid->column('employee', __('employee'))->display(function ($item) {
                 return Employee::getFIO($item['name'], $item['surname'], $item['parent_name']);
@@ -70,11 +70,11 @@ class CertificationController extends AdminController
         $show->id('ID');
 
         if ($isAdmin) {
-            $show->employee('Employee information', function ($user) {
+            $show->employee(__('Employee information'), function ($user) {
 
                 // $author->setResource('/admin/users');
-                $user->id();
-                $user->fullname();
+                $user->id(__('ID'));
+                $user->fullname(__('fullname'));
 
                 $user->panel()->tools(function ($tools) {
                     $tools->disableEdit();
@@ -83,10 +83,10 @@ class CertificationController extends AdminController
                 });
             });
         };
-        $show->title('title');
-        $show->description('description');
-        $show->date('date');
-        $show->created_at();
+        $show->title(__('title'));
+        $show->description(__('description'));
+        $show->date(__('date'));
+        $show->created_at(__('created_at'));
         //TODO format columns
 
         return $show;
@@ -134,11 +134,11 @@ class CertificationController extends AdminController
 
         $form = new Form($leave);
 
-        $form->display('id', 'ID');
-        $form->text('title', 'title');
-        $form->textarea('description', 'description');
-        $form->date('date', 'date');
-        $form->display('created_at', 'Created time');
+        $form->display('id', __('id'));
+        $form->text('title', __('title'));
+        $form->textarea('description', __('description'));
+        $form->date('date', __('date'));
+        $form->display('created_at', __('created_at'));
         if ($isAdmin) {
             // Subtable fields
             $form->select('employee_id', 'Працівник')->options(function ($id) {
