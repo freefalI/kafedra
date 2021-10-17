@@ -92,7 +92,7 @@ class WidgetController extends AdminController
 
             $row->column(3, new Widgets\InfoBox(
                 'Студентів',
-                'book',
+                'users',
                 'red',
                 'students',
                 Student::count()

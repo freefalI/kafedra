@@ -33,6 +33,10 @@ class StudentController extends AdminController
         $grid->column('student_id', __('student_id'));
         $grid->column('dob', __('dob'));
         $grid->column('birth_address', __('birth_address'));
+        $grid->filter(function ($filter) {
+            $filter->like('name', __('name'));
+            $filter->like('enter_year', __('enter_year'));
+        });
 
         return $grid;
     }
