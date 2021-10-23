@@ -22,7 +22,6 @@ class LeaveController extends AdminController
      * @var string
      */
     protected $title = 'Вихідні';
-    //TODO disable creating button
     /**
      * Make a grid builder.
      *
@@ -110,7 +109,6 @@ class LeaveController extends AdminController
         $show->reason(__('reason'));
         $show->is_approved(__('is_approved'));
         $show->created_at(__('created_at'));
-        //TODO format columns
 
         return $show;
     }
@@ -165,15 +163,11 @@ class LeaveController extends AdminController
 
         $form->textarea('reason', __('reason'));
         $form->display('created_at',   __('created_at'));
-        // $form->display('updated_at','Updated at');
-        // $form->checkbox('is_approved')->options(['1' => 'Yes']);
 
 
         $states = [
             'on'  => ['value' => 1, 'text' => 'Yes', 'color' => 'success'],
             'off' => ['value' => 0, 'text' => 'No', 'color' => 'danger'],
-            // 1 => ['text' => 'YES'],
-            // 0 => ['text' => 'NO'],
         ];
 
         if ($isAdmin) {

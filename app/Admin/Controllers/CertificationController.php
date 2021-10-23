@@ -151,28 +151,4 @@ class CertificationController extends AdminController
         return $form;
     }
 
-
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param int $id
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update($id)
-    // {
-    //     if (request()->has('is_approved')) {
-    //         $ia = request()->input('is_approved');
-    //         if ($ia === 'on') {
-    //             request()->merge(['is_approved' => 1]);
-    //         } else if ($ia == 'off') {
-    //             request()->merge(['is_approved' => 0]);
-    //         }
-
-    //         Work::where('id', $id)->update(request()->only(['is_approved']));
-    //     }
-
-    //     return $this->form()->update($id);
-    // }
 }

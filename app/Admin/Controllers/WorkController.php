@@ -89,7 +89,6 @@ class WorkController extends AdminController
         $show->source(__('source'));
         $show->published_at(__('published_at'));
         $show->created_at(__('created_at'));
-        //TODO format columns
 
         return $show;
     }
@@ -98,14 +97,6 @@ class WorkController extends AdminController
     public function edit($id, Content $content)
     {
         $isAdmin = !auth()->user()->employee;
-
-        // if (!$isAdmin) {
-        //     $leave =  Work::find($id);
-        //     if ($leave->is_approved) {
-        //         return $content
-        //             ->withError('Не доступно', 'Ви не можете редагувати погоджену заяву');
-        //     }
-        // }
 
         return $content
 
@@ -153,29 +144,4 @@ class WorkController extends AdminController
         }
         return $form;
     }
-
-
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param int $id
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update($id)
-    // {
-    //     if (request()->has('is_approved')) {
-    //         $ia = request()->input('is_approved');
-    //         if ($ia === 'on') {
-    //             request()->merge(['is_approved' => 1]);
-    //         } else if ($ia == 'off') {
-    //             request()->merge(['is_approved' => 0]);
-    //         }
-
-    //         Work::where('id', $id)->update(request()->only(['is_approved']));
-    //     }
-
-    //     return $this->form()->update($id);
-    // }
 }

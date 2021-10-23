@@ -15,7 +15,7 @@ class Extract extends RowAction
 
     public function handle(Employee $employee)
     {
-        //TODO ossibility to choose month
+        //TODO add possibility to choose month
         $start = now()->startOfMonth();
         $i = clone $start;
         $data = [];
@@ -62,7 +62,6 @@ class Extract extends RowAction
             }
 
             $i->addDay();
-            // dump($i);
             if ($i > $start->clone()->endOfMonth())
                 break;
         }

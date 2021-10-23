@@ -64,7 +64,6 @@ class WidgetController extends AdminController
                 'leaves-calendar',
                 $total - $notAvailableEmployees
             ));
-            // $row->column(3, new Widgets\InfoBox('Articles', 'book', 'yellow', '/demo/articles', '2786'));
             $row->column(3, new Widgets\InfoBox(
                 'Заяв на розгляд',
                 'file',
@@ -98,9 +97,6 @@ class WidgetController extends AdminController
                 Student::count()
             ));
 
-            //book
-            //file
-            ///https://fontawesome.com/v4.7/icons/і
         });
 
         $headers1 = ['Ступінь', 'Кількість'];

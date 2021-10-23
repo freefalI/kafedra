@@ -34,11 +34,6 @@ class EmployeeController extends AdminController
 
         $grid->id('ID');
         $grid->column('user.avatar', __('avatar'))->image('', 70, 70);
-        // $grid->display(function ($item) {
-        //     // dd($item);
-        //     return Employee::getFIO($item['name'], $item['surname'], $item['parent_name']);
-        // });
-
 
         $grid->column('full_name')->display(function () {
             return $this->full_name;
@@ -178,7 +173,7 @@ class EmployeeController extends AdminController
         $form->text('employment_id',__('employment_id'));
         // $form->display('updated_at','Updated at');
 
-        //TODO except main admin
+        //TODO not return main admin user
         $form->select('user_id', 'Користувач')->options(function ($id) {
             $user = Administrator::find($id);
             if ($user) {
